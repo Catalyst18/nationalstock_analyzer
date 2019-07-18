@@ -1,0 +1,7 @@
+#Ignore .pyc file
+*.pyc
+
+#Ignore pycache
+nse_analyzer/__pycache__/
+
+.spyproject/
