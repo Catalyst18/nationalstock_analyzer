@@ -4,16 +4,15 @@ import os
 import nse_analyzer.scrapper as nse
 from datetime import date,timedelta
 import configparser
-#print("""Adios, welcome to the script to download Combined Open interest across exchanges
-#      downloader\n There are two ways of using this script\n\n
-#      1. To do an incremental download or delta download - which will get today's latest file \n
-#      2. To do a historic download of data using "python nse_analyzer {date ranges in ddmmYYYY format}\n\n"""
-#      )
+print("""Adios, welcome to the script to download Combined Open interest across exchanges downloader
+     \n There are two ways of using this script\n
+     1. To do an incremental download or delta download - which will get today's latest file \n
+     2. To do a historic download of data using "python nse_analyzer {date ranges in ddmmYYYY format}\n""")
 w=nse.Wrapper()
 try:
     config = configparser.ConfigParser()
     config.read(os.path.join(os.getcwd(),'nse_config.ini'))
-#    print(os.path.join(os.getcwd(), 'nse_config.ini'))
+    # print(os.path.join(os.getcwd(), 'nse_config.ini'))
     path = config.get('config','directory')
 except Exception as e:
     print(e)
