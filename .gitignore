@@ -4,4 +4,8 @@
 #Ignore pycache
 nse_analyzer/__pycache__/
 
+#Ingnore the project cache if using spyder
 .spyproject/
+
+#Ignoring the project cache if using visual studio code
+*.code-workspace
