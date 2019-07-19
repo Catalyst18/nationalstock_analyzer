@@ -4,6 +4,7 @@ import os
 import nse_analyzer.scrapper as nse
 from datetime import date,timedelta
 import configparser
+import nse_analyzer.data_integration as di
 print("""Adios, welcome to the script to download Combined Open interest across exchanges downloader
      \n There are two ways of using this script\n
      1. To do an incremental download or delta download - which will get today's latest file \n
@@ -28,8 +29,7 @@ if len(sys.argv[1:]) == 0:
 for date_range in sys.argv[1:]:
     w.download_data(date_range,path)
 #    print(date_range)
-try:
-    import nse_analyzer.data_integration as di
+try:    
     d = di.DatabaseManager('postgres','Etsantosh_18','localhost','5432','postgres')
     records=d.select_data('select * from nse_analyzer."D_NSE_COMPANIES"')
     print('\n{}\n'.format(records))
