@@ -28,4 +28,12 @@ if len(sys.argv[1:]) == 0:
 for date_range in sys.argv[1:]:
     w.download_data(date_range,path)
 #    print(date_range)
+try:
+    import nse_analyzer.data_integration as di
+    d = di.DatabaseManager('postgres','Etsantosh_18','localhost','5432','postgres')
+    records=d.select_data('select * from nse_analyzer."D_NSE_COMPANIES"')
+    print('\n{}\n'.format(records))
+    d.close_connection()
+except Exception as e:
+    print(e)
 
