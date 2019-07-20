@@ -5,7 +5,7 @@ import sys
 import time
 from datetime import date,timedelta
 import requests
-import shutil
+# import shutil
 import sys
 
 class Wrapper:
@@ -21,5 +21,6 @@ class Wrapper:
         with open(path+'\\combine_{}.zip'.format(self._date),'wb') as f:
             f.write(self._file_cache.content)
         print('The file combine_{} is persisted in the following directory {}'.format(self._date,path))
+        return(path+'\\combine_{}.zip'.format(self._date),'combineoi_{}.csv'.format(self._date))
 
 
