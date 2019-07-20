@@ -72,6 +72,8 @@ try:
             df.columns = ['report_date','isin_id','company_name','company_symbol','mwpl_amount','open_interest','limit_amount']
             df.loc[df['limit_amount']=='No Fresh Positions','limit_amount']=0
             df[['limit_amount']] = df[['limit_amount']].apply(pd.to_numeric)
+            #Create a column insert_time to log when the insert happens
+            df['insert_time'] = pd.Series(pd.to_datetime('today'), index=df.index)
             d.pd_to_postgres(schema,table_name,df)
             # d.close_connection()
             # print(zip_file_path,csv_file_name)
