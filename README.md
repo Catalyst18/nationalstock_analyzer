@@ -1,4 +1,4 @@
-Overview:
+OVERVIEW:
 
 This is a Developement project for analyzing the National stock Exchange (NSE).
 https://www.nseindia.com/products/content/derivatives/equities/homepage_fo.htm
@@ -62,7 +62,8 @@ Produce a report trend that has the stats of investments and stock market analys
 
 Make the code more robust to download multiple dataset eg for Crude oil, natural gas, COMPANY specific historic trends
 
-Predict the right time to buy or sell shares with Machine Learing
+Predict the right time to buy or sell shares with Machine Learning
+
 
 
 
