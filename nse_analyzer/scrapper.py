@@ -18,9 +18,11 @@ class Wrapper:
         self._date = date
         self._url='https://www.nseindia.com/archives/nsccl/mwpl/combineoi_{}.zip'.format(self._date)
         self._file_cache = requests.get(self._url)
-        with open(path+'\\combine_{}.zip'.format(self._date),'wb') as f:
+        with open(os.path.join(path,'combine_{}.zip'.format(self._date)),'wb') as f:
+        # with open(path+'\\combine_{}.zip'.format(self._date),'wb') as f:
             f.write(self._file_cache.content)
         print('The file combine_{} is persisted in the following directory {}'.format(self._date,path))
-        return(path+'\\combine_{}.zip'.format(self._date),'combineoi_{}.csv'.format(self._date))
+        return (os.path.join(path,'combine_{}.zip'.format(self._date)),'combineoi_{}.csv'.format(self._date))
+        # return(path+'\\combine_{}.zip'.format(self._date),'combineoi_{}.csv'.format(self._date))
 
 
