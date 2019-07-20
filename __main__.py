@@ -57,7 +57,10 @@ def load_data_to_db():
 w=nse.Wrapper()
 try:
     config = configparser.ConfigParser()
-    config.read(os.path.join(os.getcwd(),'nse_config.ini'))
+    if os.path.isfile('nse_config.ini'):
+        config.read(os.path.join(os.getcwd(),'nse_config.ini'))
+    else:
+        config.read(os.path.join(os.getcwd(),'default.ini'))
     # print(os.path.join(os.getcwd(), 'nse_config.ini'))
     path = config.get('config','directory')
 except Exception as e:
