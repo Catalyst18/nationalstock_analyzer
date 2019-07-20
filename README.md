@@ -43,7 +43,8 @@ HOW TO ?:
 
 Before we begin we need to setup the default.ini file with necessary parameters.
 
-There are two ways of using this script\n
+There are two ways of using this script
+
      1. To do an incremental download or delta download - which will get today's latest file.
 
      		python nse_analyzer
