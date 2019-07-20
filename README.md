@@ -47,10 +47,10 @@ There are two ways of using this script
 
      1. To do an incremental download or delta download - which will get today's latest file.
 
-     		python nse_analyzer
+     		$python nse_analyzer
 
      2. To do a historic download of data using "python nse_analyzer {date ranges in ddmmYYYY format}.
-         eg:python nse_analyzer python nse_analyser 01012017 31092019
+         eg : $python nse_analyser 01012017 31092019
 
 WHATS NEXT?:
 
