@@ -9,3 +9,6 @@ nse_analyzer/__pycache__/
 
 #Ignoring the project cache if using visual studio code
 *.code-workspace
+
+#Ignoring my ini config file
+nse_config.ini
