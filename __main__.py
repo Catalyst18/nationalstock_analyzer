@@ -41,8 +41,13 @@ def load_data_to_db():
             with zf.open(csv_file_name) as f:
                 df = pd.read_csv(f)
                 df.columns = ['report_date','isin_id','company_name','company_symbol','mwpl_amount','open_interest','limit_amount']
-                df.loc[df['limit_amount']=='No Fresh Positions','limit_amount']=0
-                df[['limit_amount']] = df[['limit_amount']].apply(pd.to_numeric)
+                try:
+                    df.loc[df['limit_amount']=='No Fresh Positions','limit_amount']=0
+                    df[['limit_amount']] = df[['limit_amount']].apply(pd.to_numeric)
+                except Exception as e:
+                    print('Warning:\n',e)
+
+                # continue
                 #Create a column insert_time to log when the insert happens
                 df['insert_time'] = pd.Series(pd.to_datetime('today'), index=df.index)
                 d.pd_to_postgres(schema,table_name,df)
@@ -79,9 +84,10 @@ if len(sys.argv[1:]) == 0:
     date_to_extract = date_to_extract.strftime('%d%m%Y')
     zip_file_path,csv_file_name = w.download_data(date_to_extract,path)
     load_data_to_db()
-for date_range in sys.argv[1:]:
-    zip_file_path,csv_file_name=w.download_data(date_range,path)
-    load_data_to_db()
+else:
+    for date_range in sys.argv[1:]:
+        zip_file_path,csv_file_name=w.download_data(date_range,path)
+        load_data_to_db()
 """
 **********************************************************************************************************
 The below try catch block accomplishes two things
