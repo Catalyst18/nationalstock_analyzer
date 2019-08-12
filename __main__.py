@@ -72,7 +72,7 @@ def load_data_to_db():
             pivot_df = pd.pivot_table(data = report_df,index = ['company_name','curr_limit'],columns='days',values=['percentage','previous_limit'])
             # print(pivot_df)
             pivot_df.to_csv('{}Data_Report_{}.csv'.format(directory_path,date.today()))
-            print('\n\n\n Report produced successfully and persisted in the following path {}\n\n'.format(directory_path))
+            print('\n\n Report produced successfully and persisted in the following path {}\n\n'.format(directory_path))
             d.close_connection()
 
         
