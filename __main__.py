@@ -2,7 +2,7 @@
 import sys
 import os
 import nse_analyzer.scrapper as nse
-from datetime import date,timedelta
+from datetime import date,timedelta,datetime
 import configparser
 import nse_analyzer.data_integration as di
 import pandas as pd
@@ -15,6 +15,8 @@ print("""Adios, welcome to the script to download Combined Open interest across 
      2. To do a historic download of data using "python nse_analyzer {date ranges in ddmmYYYY format}\n
          eg:python nse_analyzer python nse_analyser 01012017 31092019""")
 
+def get_db_config():
+    return 
 def load_data_to_db():    
     try:
         """
@@ -30,6 +32,7 @@ def load_data_to_db():
         database = config.get('config','database')
         schema = config.get('config','schema')
         table_name =config.get('config','table_name')
+        directory_path = config.get('config','directory')
         """
     **********************************************************************************************************
         Load the data that is downloaded into postgres DB
@@ -56,7 +59,21 @@ def load_data_to_db():
     except Exception as e:
         print(e)
     finally:
-        d.close_connection()
+        print('\n\n\nWould you like your report to be produced as of today:\t (Y/n)')
+        reply = input()
+        if reply.lower() =='y':
+            report_records = d.select_data('select * from nse_analyzer.v_nse_report_generator')
+            report_df = pd.DataFrame(report_records)
+            report_df.columns=['days','isin_number','company_name','company_symbol','report_date','curr_limit','previous_limit','percentage']
+            # print(report_df)
+            # """To replace None type in python to Nan so that the pivot works fine is the below line of code"""
+            # report_df.percentage.fillna(value=pd.np.nan,inplace=True)
+            
+            pivot_df = pd.pivot_table(data = report_df,index = ['company_name','curr_limit'],columns='days',values=['percentage','previous_limit'])
+            # print(pivot_df)
+            pivot_df.to_csv('{}Data_Report_{}.csv'.format(directory_path,date.today()))
+            print('\n\n\n Report produced successfully and persisted in the following path {}\n\n'.format(directory_path))
+            d.close_connection()
 
         
 w=nse.Wrapper()
@@ -88,6 +105,9 @@ else:
     for date_range in sys.argv[1:]:
         zip_file_path,csv_file_name=w.download_data(date_range,path)
         load_data_to_db()
+
+# print('\n\n Would you like the report to be produced as of today\n Type(y/n)')
+# reply = str(input())
 """
 **********************************************************************************************************
 The below try catch block accomplishes two things
